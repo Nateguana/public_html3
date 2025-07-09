@@ -40,7 +40,7 @@ function make_cell_list() {
 function setup_game(starting_cells) {
     for (let x = 0; x < 5; x++) {
         for (let y = 0; y < 5; y++) {
-            CELLS[y][x].innerHTML = starting_cells[y][x];
+            CELLS[y][x].firstElementChild.innerHTML = starting_cells[y][x];
         }
     }
 }
@@ -54,8 +54,9 @@ document.getElementById("words").innerHTML = "Words to spell: " + boards[0].word
 
 
 function move(x, y) {
-    CELLS[y][x].innerHTML = CELLS[selected_y][selected_x].innerHTML + CELLS[y][x].innerHTML;
-    CELLS[selected_y][selected_x].innerHTML = ""
+    CELLS[selected_y][selected_x].classList.add("empty");
+    CELLS[y][x].firstElementChild.innerHTML = CELLS[selected_y][selected_x].firstElementChild.innerHTML + CELLS[y][x].firstElementChild.innerHTML;
+    CELLS[selected_y][selected_x].firstElementChild.innerHTML = ""
     select(x, y);
 }
 
@@ -66,7 +67,7 @@ function unselect(x, y) {
 }
 
 function select(x, y) {
-    if (CELLS[y][x].innerHTML.length > 0) {
+    if (CELLS[y][x].firstElementChild.innerHTML.length > 0) {
         if (selected_x >= 0 && selected_y >= 0)
             CELLS[selected_y][selected_x].classList.remove("selected");
         CELLS[y][x].classList.add("selected");
@@ -82,7 +83,7 @@ function is_close(a, b) {
 function can_move(x, y) {
     let can_move = is_close(selected_x, x) && selected_y == y || is_close(selected_y, y) && selected_x == x;
 
-    return selected_x >= 0 && selected_y >= 0 && can_move && CELLS[y][x].innerHTML.length > 0
+    return selected_x >= 0 && selected_y >= 0 && can_move && CELLS[y][x].firstElementChild.innerHTML.length > 0
 }
 
 function on_click(x, y) {
@@ -94,4 +95,22 @@ function on_click(x, y) {
     } else {
         select(x, y)
     }
+}
+
+let accel = .001;
+let velocity = .5;
+let angle = 0;
+
+function on_frame() {
+    angle += velocity;
+    velocity += accel;
+    accel += .0001;
+    document.body.style = "--angle:" + angle + "deg;"
+    requestAnimationFrame(on_frame);
+}
+on_frame()
+
+function slow_down() {
+    velocity = Math.max(.5, velocity - .5)
+    accel = .001;
 }
