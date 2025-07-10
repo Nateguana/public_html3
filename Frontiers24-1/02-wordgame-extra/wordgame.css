@@ -1,0 +1,24 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.letter {
+    width: 10vmin;
+    height: 10vmin;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    border: 2px solid black;
+    margin: 10px;
+    font-size: 8vmin;
+
+    background-color: grey;
+}
+
+.letter.correct {
+    background-color: lightgreen;
+}
+
+.letter.partial {
+    background-color: lightyellow;
+}
