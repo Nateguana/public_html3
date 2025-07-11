@@ -25,9 +25,15 @@ body {
     flex-wrap: wrap;
 }
 
-#super-gompei {
+.super-gompei {
     filter: hue-rotate(180deg) sepia(calc(var(--gompei-count) * 10%)) saturate(calc(clamp(0, var(--gompei-count), 10) * 40% + 100%));
     transform: rotateX(180deg);
+    /* filter: sepia(calc(--gompei-count * 0.05)) */
+}
+
+.rainbow-gompei {
+    filter: hue-rotate(var(--angle));
+    /* transform: rotateX(180deg); */
     /* filter: sepia(calc(--gompei-count * 0.05)) */
 }
 
